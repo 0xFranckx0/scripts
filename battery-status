@@ -1,0 +1,26 @@
+#!/bin/ksh
+# By Gurwall
+
+MAX="$(sysctl -n hw.sensors.acpibat0 | grep full | awk '{print $1}')"
+
+while true; do
+	clear
+	REM="$(sysctl -n hw.sensors.acpibat0 | grep remaining \
+		| awk '{print $1}')"
+	PERCENTAGE=`echo "$REM / $MAX * 100"|bc -l`
+
+
+	echo ""
+	echo "  ____        _   _                  ";
+	echo " | __ )  __ _| |_| |_ ___ _ __ _   _ ";
+	echo " |  _ \ / _\` | __| __/ _ \ '__| | | |";
+	echo " | |_) | (_| | |_| ||  __/ |  | |_| |";
+	echo " |____/ \__,_|\__|\__\___|_|   \__, |";
+	echo "                               |___/ ";
+	echo ""
+
+	printf "\t\t%.2f" ${PERCENTAGE}
+	echo "%"
+	sleep 60
+done 
+
