@@ -1,6 +1,5 @@
 #!/bin/ksh -x
 #By Gurwall
-#
 
 VERSION="6.0"
 TAG="60"
@@ -79,11 +78,3 @@ cp /etc/resolv.conf etc/
 
 # Example to chroot
 #chroot /jails/$1 ldconfig /usr/lib /usr/local/lib /usr/X11R6/lib
-
-
-
-
-
-
-
-
