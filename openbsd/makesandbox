@@ -1,0 +1,89 @@
+#!/bin/ksh -x
+#By Gurwall
+#
+
+VERSION="6.0"
+TAG="60"
+
+if [ -z $1 ]; then
+	printf "usage:\n"
+	printf "\t./makesandbox <MYBOX_NAME>"
+	exit 1
+else
+	mkdir $1 
+fi
+
+if [ ! -f ./install$TAG.iso ]; then 
+	wget  http://openbsd.delfic.org/pub/OpenBSD/$VERSION/amd64/install$TAG.iso
+fi
+
+vnconfig vnd0 ./install60.iso
+DEV=`mount | grep vnd0c`
+if [ -z $DEV ]; then
+	mount -t cd9660 /dev/vnd0c /mnt 
+	ls /mnt
+fi
+
+cd $1
+
+if [ -f /mnt/$VERSION/amd64/base$TAG.tgz ]; then 
+	tar -xzf /mnt/$VERSION/amd64/base$TAG.tgz
+fi
+
+if [ -f /mnt/$VERSION/amd64/etc$TAG.tgz ]; then 
+	tar -xzf /mnt/$VERSION/amd64/etc$TAG.tgz
+fi
+
+if [ -f /mnt/$VERSION/amd64/comp$TAG.tgz ]; then 
+	tar -xzf /mnt/$VERSION/amd64/comp$TAG.tgz
+fi
+
+if [ -f /mnt/$VERSION/amd64/xbase$TAG.tgz ]; then 
+	tar -xzf /mnt/$VERSION/amd64/xbase$TAG.tgz
+fi
+
+if [ -f /mnt/$VERSION/amd64/xshare$TAG.tgz ]; then 
+	tar -xzf /mnt/$VERSION/amd64/xshare$TAG.tgz
+fi
+
+if [ -f /mnt/$VERSION/amd64/xetc$TAG.tgz ]; then 
+	tar -xzf /mnt/$VERSION/amd64/xetc$TAG.tgz
+fi
+
+if [ -f /mnt/$VERSION/amd64/xfont$TAG.tgz ]; then 
+	tar -xzf /mnt/$VERSION/amd64/xfont$TAG.tgz
+fi
+
+if [ -f /mnt/$VERSION/amd64/xserv$TAG.tgz ]; then 
+	tar -xzf /mnt/$VERSION/amd64/xserv$TAG.tgz
+fi
+
+umount /mnt
+vnconfig -u vnd0
+
+if [ ! -f usr/ports.tar.gz ]; then
+	cd usr/ && \
+	wget http://ftp.openbsd.org/pub/OpenBSD/$(uname -r)/ports.tar.gz &&\
+	wget http://ftp.openbsd.org/pub/OpenBSD/$(uname -r)/SHA256.sig &&\
+	signify -Cp /etc/signify/openbsd-$(uname -r | cut -c 1,3)-base.pub -x SHA256.sig ports.tar.gz &&\
+	tar xzf ./ports.tar.gz	&&\
+	cd ..
+fi
+
+cd dev &&\
+./MAKEDEV all &&\
+cd ..
+
+cp /etc/resolv.conf etc/ 
+
+
+# Example to chroot
+#chroot /jails/$1 ldconfig /usr/lib /usr/local/lib /usr/X11R6/lib
+
+
+
+
+
+
+
+
