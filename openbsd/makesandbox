@@ -8,7 +8,7 @@ MOUNT_POINT="/mnt"
 
 if [ -z $1 ]; then
 	printf "usage:\n"
-	printf "\t./makesandbox <MYBOX_NAME>"
+	printf "\t./makesandbox <MYBOX_NAME>\n"
 	exit 1
 else
 	mkdir $1 
