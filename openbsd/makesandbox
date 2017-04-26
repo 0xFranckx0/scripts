@@ -3,6 +3,8 @@
 
 VERSION="6.0"
 TAG="60"
+DEVICE="/dev/vnd0c"
+MOUNT_POINT="/mnt"
 
 if [ -z $1 ]; then
 	printf "usage:\n"
@@ -17,10 +19,10 @@ if [ ! -f ./install$TAG.iso ]; then
 fi
 
 vnconfig vnd0 ./install60.iso
-DEV=`mount | grep vnd0c`
+DEV=`mount | grep $DEVICE`
 if [ -z $DEV ]; then
-	mount -t cd9660 /dev/vnd0c /mnt 
-	ls /mnt
+	mount -t cd9660 $DEVICE $MOUNT_POINT 
+	ls $MOUNT_POINT
 fi
 
 cd $1
@@ -57,7 +59,7 @@ if [ -f /mnt/$VERSION/amd64/xserv$TAG.tgz ]; then
 	tar -xzf /mnt/$VERSION/amd64/xserv$TAG.tgz
 fi
 
-umount /mnt
+umount $MOUNT_POINT
 vnconfig -u vnd0
 
 if [ ! -f usr/ports.tar.gz ]; then
