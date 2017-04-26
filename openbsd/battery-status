@@ -1,5 +1,5 @@
 #!/bin/ksh
-# By Gurwall
+#By Franck "aka Gurwall"
 
 MAX="$(sysctl -n hw.sensors.acpibat0 | grep full | awk '{print $1}')"
 
