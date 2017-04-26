@@ -6,12 +6,17 @@ TAG=`uname -r | cut -c 1,3`
 DEVICE="/dev/vnd0c"
 MOUNT_POINT="/mnt"
 
-if [ -z $1 ]; then
+if [ -z "$1" ]; then
 	printf "usage:\n"
 	printf "\t./makesandbox <MYBOX_NAME>\n"
 	exit 1
-else
-	mkdir $1 
+fi
+
+if [ ! -d "$1" ]; then
+	mkdir $1
+else 
+	echo "Directory exists"	
+	exit 1
 fi
 
 if [ ! -f ./install$TAG.iso ]; then 
@@ -22,16 +27,6 @@ vnconfig vnd0 ./install60.iso
 if [ -z `mount | grep $DEVICE` ]; then
 	mount -t cd9660 $DEVICE $MOUNT_POINT 
 	ls $MOUNT_POINT
-fi
-
-cd $1
-
-if [ -f /mnt/$VERSION/amd64/base$TAG.tgz ]; then 
-	tar -xzf /mnt/$VERSION/amd64/base$TAG.tgz
-fi
-
-if [ -f /mnt/$VERSION/amd64/etc$TAG.tgz ]; then 
-	tar -xzf /mnt/$VERSION/amd64/etc$TAG.tgz
 fi
 
 if [ -f /mnt/$VERSION/amd64/comp$TAG.tgz ]; then 
