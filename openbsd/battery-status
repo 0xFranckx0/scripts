@@ -1,5 +1,5 @@
-#!/bin/ksh
-#By Franck "aka Gurwall"
+#!/bin/ksh -x
+# By Gurwall
 
 MAX="$(sysctl -n hw.sensors.acpibat0 | grep full | awk '{print $1}')"
 
@@ -8,6 +8,7 @@ while true; do
 	REM="$(sysctl -n hw.sensors.acpibat0 | grep remaining \
 		| awk '{print $1}')"
 	PERCENTAGE=`echo "$REM / $MAX * 100"|bc -l`
+	P=`printf "\t\t%.2f" ${PERCENTAGE}`
 
 
 	echo ""
@@ -19,8 +20,6 @@ while true; do
 	echo "                               |___/ ";
 	echo ""
 
-	printf "\t\t%.2f" ${PERCENTAGE}
-	echo "%"
+	echo "$P%"
 	sleep 60
 done 
-
