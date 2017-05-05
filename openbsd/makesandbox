@@ -1,5 +1,5 @@
 #!/bin/ksh -x
-#By Franck "aka Gurwall"
+# By Franck "aka Gurwall"
 
 VERSION=`uname -r`
 TAG=`uname -r | cut -c 1,3`
