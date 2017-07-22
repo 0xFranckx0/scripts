@@ -1,0 +1,19 @@
+#!/bin/sh
+
+vga() {
+    xrandr --output VGA1 --auto --right-of LVDS1
+}
+
+hdmi() {
+    xrandr --output HDMI1 --auto --right-of LVDS1
+}
+
+set -x
+xrandr --query | grep "VGA1 connected" 
+if [ $? == 0 ]; then
+	vga
+fi
+xrandr --query | grep "HDMI1 connected" 
+if [ $? == 0 ]; then
+	hdmi
+fi
