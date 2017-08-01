@@ -23,7 +23,7 @@ if [ ! -f ./install$TAG.iso ]; then
 	wget  http://openbsd.delfic.org/pub/OpenBSD/$VERSION/amd64/install$TAG.iso
 fi
 
-vnconfig vnd0 ./install60.iso
+vnconfig vnd0 ./install$TAG.iso
 if [ -z `mount | grep $DEVICE` ]; then
 	mount -t cd9660 $DEVICE $MOUNT_POINT 
 	ls $MOUNT_POINT
