@@ -1,5 +1,5 @@
 #!/bin/ksh
-# By Franck "aka Gurwall"
+#  By Franck "aka Gurwall"
 
 if [ ! -z $1 -a $1 -gt 0 -a $1 -lt 256 ]; then
 mixerctl outputs.master=$1,$1
