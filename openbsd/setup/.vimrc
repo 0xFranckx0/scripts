@@ -20,7 +20,7 @@ Plugin 'vim-scripts/indentpython.vim'
 
 "Plugin 'Valloric/YouCompleteMe'
 
-Plugin 'scrooloose/syntastic'
+"Plugin 'scrooloose/syntastic'
 
 Plugin 'nvie/vim-flake8'
 
@@ -28,13 +28,15 @@ Plugin 'jnurmine/Zenburn'
 
 Plugin 'altercation/vim-colors-solarized'
 
-Plugin 'scrooloose/nerdtree'
+"Plugin 'scrooloose/nerdtree'
 
-Plugin 'jistr/vim-nerdtree-tabs'
+"Plugin 'jistr/vim-nerdtree-tabs'
 
 Plugin 'kien/ctrlp.vim'
 
 Plugin 'tpope/vim-fugitive'
+
+Plugin 'craigemery/vim-autotag'
 
 "Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 
@@ -53,9 +55,10 @@ syntax on
 set nu
 set encoding=utf-8
 set fileformat=unix
+set backspace=indent,eol,start
 
 let g:SimpylFold_docstring_preview=1
-let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+"let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
 "let g:ycm_autoclose_preview_window_after_completion=1
 "map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
@@ -84,7 +87,7 @@ set foldlevel=99
 " Enable folding with the spacebar
 nnoremap <space> za
 
-autocmd vimenter * NERDTree
+"autocmd vimenter * NERDTree
 
 au BufNewFile,BufRead *.py,*.pl,*pm
     	\ set tabstop=4 |
@@ -108,7 +111,7 @@ au BufNewFile,BufRead *.c,*.h
 	\ set formatoptions-=c formatoptions-=o formatoptions-=r |
 	\ set comments=sl:/*,mb:\ *,elx:\ */
 
-au BufNewFile,BufRead Makefile*, makefile*
+au BufNewFile,BufRead Makefile, makefile, *.am 
 	\ set nocompatible |
 	\ set autoindent |
 	\ set smartindent |
